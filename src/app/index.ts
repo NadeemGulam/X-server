@@ -4,6 +4,7 @@ import { expressMiddleware } from '@apollo/server/express4';
 import bodyParser from "body-parser";
 import { prismaClient } from "../clients/db";
 import { User } from "./user";
+import { Tweet } from "./tweet";
 import cors from 'cors'
 import { GraphqlContext, JWTUser } from "../interfaces";
 import JWTService from "../services/jwt";
@@ -18,14 +19,27 @@ const graphqlServer = new ApolloServer<GraphqlContext>({
 
     typeDefs: `
     ${User.types}
+    ${Tweet.types}
        type Query {
         ${User.queries}
+        ${Tweet.queries}
+       }
+
+
+       type Mutation {
+        ${Tweet.muatation}
        }
     `,
     resolvers: {
         Query: {
             ...User.resolvers.queries,
+            ...Tweet.resolvers.queries,
         },
+        Mutation: {
+            ...Tweet.resolvers.mutations,
+        },
+        ...Tweet.resolvers.extraResolver,
+        ...User.resolvers.extraResolvers,
     },
     introspection: true,
 });
