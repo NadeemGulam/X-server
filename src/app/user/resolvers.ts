@@ -67,12 +67,13 @@ const queries = {
         const user = await prismaClient.user.findUnique({ where: { id } })
         return user
     },
+    getUserById: (parent: any, { id }: { id: string }, ctx: GraphqlContext) => prismaClient.user.findUnique({ where: { id } }),
 };
 
 const extraResolvers = {
     User: {
         tweets: (parent: User) => {
-            return prismaClient.tweet.findMany({ where: {author:{ id: parent.id } }})
+            return prismaClient.tweet.findMany({ where: { author: { id: parent.id } } })
         }
     }
 }
