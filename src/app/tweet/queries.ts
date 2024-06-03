@@ -1,3 +1,4 @@
 export const queries = `#graphql
-getAllTweets:[Tweet]
+    getAllTweets:[Tweet]
+    getSignedURLForTweet(imageName :String!, imageType:String!):String
 `
