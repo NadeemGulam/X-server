@@ -28,6 +28,7 @@ const graphqlServer = new ApolloServer<GraphqlContext>({
 
        type Mutation {
         ${Tweet.muatation}
+        ${User.mutations}
        }
     `,
     resolvers: {
@@ -37,6 +38,7 @@ const graphqlServer = new ApolloServer<GraphqlContext>({
         },
         Mutation: {
             ...Tweet.resolvers.mutations,
+            ...User.resolvers.mutations,
         },
         ...Tweet.resolvers.extraResolver,
         ...User.resolvers.extraResolvers,
