@@ -1,6 +1,7 @@
 import axios from "axios";
 import { prismaClient } from "../clients/db";
 import JWTService from "./jwt";
+import { redisClient } from "../clients/redis";
 
 interface GoogleTokenResult {
     iss?: string;
@@ -55,6 +56,7 @@ class UserService {
     }
 
     public static getUserById(id: string) {
+        
         return prismaClient.user.findUnique({ where: { id } })
     }
 
